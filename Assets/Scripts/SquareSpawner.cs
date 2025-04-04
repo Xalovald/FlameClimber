@@ -10,11 +10,10 @@ public class SquareSpawner : MonoBehaviour
 
     private List<Transform> shuffledSpawnPoints;
     private int currentSpawnIndex = 0;
-    private Transform lastSpawnPoint = null;
-    private int consecutiveSpawns = 0;
 
     void Start()
     {
+        // Initialize the shuffled list of spawn points
         ShuffleSpawnPoints();
     }
 
@@ -33,27 +32,15 @@ public class SquareSpawner : MonoBehaviour
     {
         if (shuffledSpawnPoints.Count > 0)
         {
-            Transform spawnPoint;
-            do
-            {
-                spawnPoint = shuffledSpawnPoints[currentSpawnIndex];
-                currentSpawnIndex = (currentSpawnIndex + 1) % shuffledSpawnPoints.Count;
-            } while (spawnPoint == lastSpawnPoint && consecutiveSpawns >= 2);
-
+            Transform spawnPoint = shuffledSpawnPoints[currentSpawnIndex];
             Instantiate(square, spawnPoint.position, spawnPoint.rotation);
 
-            if (spawnPoint == lastSpawnPoint)
-            {
-                consecutiveSpawns++;
-            }
-            else
-            {
-                lastSpawnPoint = spawnPoint;
-                consecutiveSpawns = 1;
-            }
-            if (currentSpawnIndex == 0)
+            currentSpawnIndex++;
+
+            if (currentSpawnIndex >= shuffledSpawnPoints.Count)
             {
                 ShuffleSpawnPoints();
+                currentSpawnIndex = 0;
             }
         }
     }

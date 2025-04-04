@@ -9,9 +9,15 @@ public class Player : MonoBehaviour
 
     public Transform groundCheckLeft;
     public Transform groundCheckRight;
+    private OnTriggerHead onTriggerHead;
 
     public Rigidbody2D rb;
-    private Vector3 velocity = Vector3.zero; 
+    private Vector3 velocity = Vector3.zero;
+
+    void Start()
+    {
+        onTriggerHead = GetComponent<OnTriggerHead>();
+    }
     void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapArea(groundCheckLeft.position, groundCheckRight.position);
@@ -34,6 +40,15 @@ public class Player : MonoBehaviour
         {
             rb.AddForce(new Vector2(0f, jumpForce));
             isJumping = false;
+        }
+    }
+
+    public void Die()
+    {
+        if (onTriggerHead != null && onTriggerHead.headTrigger)
+        {
+            Destroy(gameObject);
+            Debug.Log("Player has been destroyed!");
         }
     }
 }
