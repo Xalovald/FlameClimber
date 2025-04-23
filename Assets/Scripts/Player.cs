@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -6,21 +7,21 @@ public class Player : MonoBehaviour
     public float jumpForce;
     public bool isJumping;
     public bool isGrounded;
+    public bool isBlockAbove;
 
     public Transform groundCheckLeft;
     public Transform groundCheckRight;
-    private OnTriggerHead onTriggerHead;
+    public Transform headCheckRight;
+    public Transform headCheckLeft;
 
     public Rigidbody2D rb;
     private Vector3 velocity = Vector3.zero;
 
-    void Start()
-    {
-        onTriggerHead = GetComponent<OnTriggerHead>();
-    }
+    
     void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapArea(groundCheckLeft.position, groundCheckRight.position);
+        isBlockAbove = Physics2D.OverlapArea(headCheckLeft.position, headCheckRight.position);
 
         float horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
 
@@ -29,7 +30,13 @@ public class Player : MonoBehaviour
             isJumping = true;
         }
 
+        if(isBlockAbove == true)
+        {
+            Die();
+        }
+
         MovePlayer(horizontalMovement);
+        
     }
 
     void MovePlayer(float _horizontalMovement)
@@ -43,12 +50,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Die()
+    private void Die()
     {
-        if (onTriggerHead != null && onTriggerHead.headTrigger)
-        {
-            Destroy(gameObject);
-            Debug.Log("Player has been destroyed!");
-        }
+        Debug.Log("Le joueur à été touché!");
+        Destroy(gameObject);
     }
 }

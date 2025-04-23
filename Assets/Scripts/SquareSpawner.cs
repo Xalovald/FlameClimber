@@ -5,7 +5,8 @@ public class SquareSpawner : MonoBehaviour
 {
     public GameObject square;
     public List<Transform> spawnPoints;
-    public float spawnInterval = 2.0f;
+    public TimeManager timeManager;
+
     private float timeSinceLastSpawn = 0.0f;
 
     private List<Transform> shuffledSpawnPoints;
@@ -13,15 +14,17 @@ public class SquareSpawner : MonoBehaviour
 
     void Start()
     {
-        // Initialize the shuffled list of spawn points
         ShuffleSpawnPoints();
     }
 
     void Update()
     {
+        // Gère le temps global via TimeManager
+        timeManager.UpdateTimer();
+
         timeSinceLastSpawn += Time.deltaTime;
 
-        if (timeSinceLastSpawn >= spawnInterval)
+        if (timeSinceLastSpawn >= timeManager.spawnInterval)
         {
             timeSinceLastSpawn = 0.0f;
             SpawnSquare();
