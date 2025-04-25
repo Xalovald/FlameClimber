@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SquareSpawner : MonoBehaviour
@@ -19,7 +19,7 @@ public class SquareSpawner : MonoBehaviour
 
     void Update()
     {
-        // G�re le temps global via TimeManager
+        // Gère le temps global via TimeManager
         timeManager.UpdateTimer();
 
         timeSinceLastSpawn += Time.deltaTime;

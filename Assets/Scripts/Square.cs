@@ -1,10 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Square : MonoBehaviour
 {
     [Range(1, 2000)]
     public static float globalSpeed = 15f;
     public static float speedIncrease = 5f;
+    public static float maxSpeed = 45f;
 
     private float speed;
     private bool hasLanded = false;
@@ -26,15 +27,14 @@ public class Square : MonoBehaviour
     {
         if (collision.collider.CompareTag("Ground") || collision.collider.CompareTag("Square"))
         {
-            speed = 0f;
             hasLanded = true;
-            Debug.Log("Square landed and stopped.");
+            speed = 0f;
         }
     }
 
     public static void IncreaseGlobalSpeed()
     {
-        globalSpeed += speedIncrease;
+        globalSpeed = Mathf.Min(globalSpeed + speedIncrease, maxSpeed);
         Debug.Log("New global square speed: " + globalSpeed);
     }
 }
