@@ -7,7 +7,16 @@ public class GameManager : MonoBehaviour
 
     public void TriggerGameOver(int coinCount, float timeSurvived)
     {
-        if (!isGameOver)
+        if (isGameOver) return;
+
+        if (coinCount >= 10)
+        {
+            isGameOver = true;
+            PlayerPrefs.SetFloat("SurvivalTime", timeSurvived);
+            PlayerPrefs.Save();
+            SceneManager.LoadScene("WinScene");
+        }
+        else
         {
             isGameOver = true;
             PlayerPrefs.SetInt("FinalCoins", coinCount);

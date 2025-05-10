@@ -5,7 +5,7 @@ public class BonusSpawner : MonoBehaviour
 {
     public GameObject bonusCoin;
 
-    public float bonusSpawnDelay = 10f;
+    public float bonusSpawnDelay = 5f;
     public float bonusSpawnInterval = 5f;
 
     private float timeSinceStart = 0f;
