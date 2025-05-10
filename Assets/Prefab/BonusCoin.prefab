@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42fb3a6a8fad7cb489c32648d13127bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedBoost: 10
+  speedBoost: 25
   isTouched: 0
   topCheckLeft: {fileID: 2113241500287845183}
   topCheckRight: {fileID: 1941199938936721026}

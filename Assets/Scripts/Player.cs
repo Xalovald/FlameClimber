@@ -3,9 +3,9 @@ using TMPro;
 
 public class Player : MonoBehaviour
 {
-    public float moveSpeed = 10f;
+    public float moveSpeed = 250f;
     private float baseMoveSpeed;
-    public float jumpForce = 10f;
+    public float jumpForce = 450f;
     public bool isJumping;
     public bool isGrounded;
     public bool isBlockAbove;
@@ -16,10 +16,15 @@ public class Player : MonoBehaviour
     public Transform headCheckLeft;
 
     public Rigidbody2D rb;
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
+
     private Vector3 velocity = Vector3.zero;
     public int coinCount = 0;
 
     public TextMeshProUGUI bonusText;
+    public TextMeshProUGUI blockSpeedText;
+    public TextMeshProUGUI playerSpeedText;
 
     void Start()
     {
@@ -38,6 +43,17 @@ public class Player : MonoBehaviour
         }
 
         MovePlayer(horizontalMovement);
+
+        flip(rb.linearVelocity.x);
+
+        bool characterJump = isJumping;
+        animator.SetBool("IsJump", characterJump);
+
+        float characterVelocity = Mathf.Abs(rb.linearVelocity.x);
+        animator.SetFloat("Speed", characterVelocity);
+
+        UpdateBlockSpeedText();
+        UpdatePlayerSpeedText();
     }
 
     void MovePlayer(float _horizontalMovement)
@@ -49,6 +65,18 @@ public class Player : MonoBehaviour
         {
             rb.AddForce(new Vector2(0f, jumpForce));
             isJumping = false;
+        }
+    }
+
+    void flip(float velocity)
+    {
+        if(velocity > 0.1f)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if(velocity < -0.1f)
+        {
+            spriteRenderer.flipX = true;
         }
     }
 
@@ -68,22 +96,44 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
+        GameManager gm = FindFirstObjectByType<GameManager>();
+        if (gm != null)
+        {
+            float timeSurvived = Time.timeSinceLevelLoad;
+            gm.TriggerGameOver(coinCount, timeSurvived);
+        }
+
         Destroy(gameObject);
     }
 
-    // === MÉTHODES DE BONUS ===
+
+    // MÉTHODES DE BONUS //
     public void AddCoin()
     {
         coinCount++;
         UpdateBonusText();
     }
 
+    public void BoostSpeed(float amount)
+    {
+        moveSpeed += amount;
+        UpdatePlayerSpeedText();
+    }
+
+
+    // MÉTHODES DE TEXTE //
     void UpdateBonusText()
     {
-        bonusText.text = "Pièces : " + coinCount;
+        bonusText.text = "Coins : " + coinCount;
     }
-    public void SetActive(bool active)
+    void UpdateBlockSpeedText()
     {
-        gameObject.SetActive(active);
+        blockSpeedText.text = "Block speed : " + Square.globalSpeed.ToString("0.0");
     }
+
+    void UpdatePlayerSpeedText()
+    {
+        playerSpeedText.text = "Player speed : " + moveSpeed.ToString("0.0");
+    }
+
 }

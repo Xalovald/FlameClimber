@@ -35,6 +35,5 @@ public class Square : MonoBehaviour
     public static void IncreaseGlobalSpeed()
     {
         globalSpeed = Mathf.Min(globalSpeed + speedIncrease, maxSpeed);
-        Debug.Log("New global square speed: " + globalSpeed);
     }
 }

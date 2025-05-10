@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BonusCoin : MonoBehaviour
 {
-    public float speedBoost = 10f;
+    public float speedBoost = 25f;
     public bool isTouched;
 
     public Transform topCheckLeft;
@@ -15,6 +15,7 @@ public class BonusCoin : MonoBehaviour
         if (player != null)
         {
             player.AddCoin();
+            player.BoostSpeed(speedBoost);
             Destroy(gameObject);
         }
 

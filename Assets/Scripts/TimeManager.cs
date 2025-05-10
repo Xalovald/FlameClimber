@@ -16,11 +16,11 @@ public class TimeManager : MonoBehaviour
         if (timer >= decreaseInterval)
         {
             timer = 0f;
-            DecreaseSpawnIntervalAndNotifySquare();
+            DecreaseSpawnInterval();
         }
     }
 
-    private void DecreaseSpawnIntervalAndNotifySquare()
+    private void DecreaseSpawnInterval()
     {
         if (spawnInterval > minimumSpawnInterval)
         {

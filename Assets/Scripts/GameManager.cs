@@ -1,17 +1,19 @@
-using NUnit.Framework;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
+    private bool isGameOver = false;
 
-    // Update is called once per frame
-    void Update()
+    public void TriggerGameOver(int coinCount, float timeSurvived)
     {
-        
+        if (!isGameOver)
+        {
+            isGameOver = true;
+            PlayerPrefs.SetInt("FinalCoins", coinCount);
+            PlayerPrefs.SetFloat("SurvivalTime", timeSurvived);
+            PlayerPrefs.Save();
+            SceneManager.LoadScene("GameOverScene");
+        }
     }
 }
