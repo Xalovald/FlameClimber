@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e611075848a5f83468cb869c62ba48f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinsText: {fileID: 0}
+  coinsText: {fileID: 1296469797}
   timeText: {fileID: 1280372966}
   retryButton: {fileID: 929713639}
 --- !u!114 &217510783

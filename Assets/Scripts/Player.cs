@@ -107,7 +107,7 @@ public class Player : MonoBehaviour
     }
 
 
-    // MÉTHODES DE BONUS //
+    // BONUSES METHOD //
     public void AddCoin()
     {
         coinCount++;
@@ -121,7 +121,7 @@ public class Player : MonoBehaviour
     }
 
 
-    // MÉTHODES DE TEXTE //
+    // TEXT METHOD //
     void UpdateBonusText()
     {
         bonusText.text = "Coins : " + coinCount;
